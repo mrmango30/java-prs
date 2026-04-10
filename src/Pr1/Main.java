@@ -175,9 +175,22 @@ public class Main {
     System.out.println("Введите кол-во строк");
     //Получение данных от пользователя
     int countRows = scanner.nextInt();
+
+    if(countRows <= 1){
+      System.out.println("Введенно некорректное значение");
+      manualEntryMatrix();
+      return;
+    }
+
     System.out.println("Введите кол-во столбцов");
     //Получение данных от пользователя
     int countColumns = scanner.nextInt();
+
+    if(countColumns <= 1){
+      System.out.println("Введенно некорректное значение");
+      manualEntryMatrix();
+      return;
+    }
 
     mainMatrix = new int[countRows][countColumns];
 
