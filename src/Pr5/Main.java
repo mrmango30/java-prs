@@ -272,19 +272,14 @@ public class Main {
 
   // Метод демонстрирующий подавление исключения
   public static void demonstrateSuppressedException() {
+    // Блок catch специально оставлен пустым, чтобы исключение было подавлено
     try {
-      InvalidStudentDataException exception =
-          new InvalidStudentDataException("Основное исключение");
-      exception.addSuppressed(new InvalidMarkException("Подавленное исключение"));
-      throw exception;
-    } catch (InvalidStudentDataException exception) {
-      logger.log(Level.WARNING, "Подавленное исключение", exception);
-      System.out.println("Основное исключение: " + exception.getMessage());
-
-      for (Throwable throwable : exception.getSuppressed()) {
-        System.out.println("Подавленное исключение: " + throwable.getMessage());
-      }
+      createStudentForDemo("Петров", "Петр", 20, 2, -1);
+    } catch (InvalidStudentDataException | InvalidMarkException exception) {
     }
+
+    logger.info("Продемонстрировано подавление исключения пустым блоком catch");
+    System.out.println("Исключение было подавлено пустым блоком catch");
   }
 
   // Метод создающий студента для демонстрации исключений
