@@ -2,30 +2,28 @@ package Pr6;
 
 import java.util.Scanner;
 
-//Главный класс программы
+/** Главный класс демонстрационной программы. */
 public class Main {
 
-  //Логическая переменная отвечающая за состояние программы
+  /** Создает объект главного класса. */
+  private Main() {}
+
   private static boolean isRunning = true;
-
-  //Коллекция строковых значений
   private static CircularList<String> stringList = new CircularList<>();
-
-  //Коллекция целых чисел
   private static CircularList<Integer> integerList = new CircularList<>();
-
-  //Признак выбранной строковой коллекции
   private static boolean isStringList = true;
-
-  //Создание экземпляра класса Scanner
   private static Scanner scanner = new Scanner(System.in);
 
-  //Главный метод класса
+  /**
+   * Запускает программу.
+   *
+   * @param args аргументы командной строки
+   */
   public static void main(String[] args) {
     clickProcessing();
   }
 
-  //Метод отображающий список возможных действий программы
+  /** Отображает список возможных действий программы. */
   public static void showMenu() {
     System.out.println("1. Выбрать коллекцию String");
     System.out.println("2. Выбрать коллекцию Integer");
@@ -41,7 +39,7 @@ public class Main {
     System.out.println("12. Завершение работы программы");
   }
 
-  //Метод обрабатывающий выбор действия программы
+  /** Обрабатывает выбор действия программы. */
   public static void clickProcessing() {
     while (isRunning) {
       System.out.println("Выбранная коллекция: " + (isStringList ? "String" : "Integer"));
@@ -91,7 +89,7 @@ public class Main {
     }
   }
 
-  //Метод проверяющий пустой список или нет
+  /** Проверяет пустой выбранный список или нет. */
   public static void checkList() {
     if (getCurrentList().isEmpty()) {
       System.out.println("Список пуст");
@@ -100,13 +98,13 @@ public class Main {
     }
   }
 
-  //Метод устанавливающий указатель в начало списка
+  /** Устанавливает указатель в начало выбранного списка. */
   public static void setPointerToStart() {
     getCurrentList().setPointerToStart();
     System.out.println("Указатель установлен в начало списка");
   }
 
-  //Метод добавляющий элемент за указателем
+  /** Добавляет элемент за указателем в выбранный список. */
   public static void addAfterPointer() {
     if (isStringList) {
       System.out.println("Введите строку");
@@ -119,7 +117,7 @@ public class Main {
     System.out.println("Элемент добавлен");
   }
 
-  //Метод удаляющий элемент за указателем
+  /** Удаляет элемент за указателем из выбранного списка. */
   public static void removeAfterPointer() {
     Object value = getCurrentList().removeAfterPointer();
 
@@ -130,7 +128,7 @@ public class Main {
     }
   }
 
-  //Метод выводящий элемент за указателем
+  /** Выводит элемент за указателем выбранного списка. */
   public static void showPointerValue() {
     Object value = getCurrentList().getPointerValue();
 
@@ -141,30 +139,34 @@ public class Main {
     }
   }
 
-  //Метод перемещающий указатель вправо
+  /** Перемещает указатель выбранного списка вправо. */
   public static void movePointerRight() {
     getCurrentList().movePointerRight();
     System.out.println("Указатель перемещен вправо");
   }
 
-  //Метод меняющий местами конец списка и элемент за указателем
+  /** Меняет местами конец списка и элемент за указателем. */
   public static void swapTailAndPointer() {
     getCurrentList().swapTailAndPointer();
     System.out.println("Обмен выполнен");
   }
 
-  //Метод меняющий местами начало списка и элемент за указателем
+  /** Меняет местами начало списка и элемент за указателем. */
   public static void swapHeadAndPointer() {
     getCurrentList().swapHeadAndPointer();
     System.out.println("Обмен выполнен");
   }
 
-  //Метод выводящий список
+  /** Выводит выбранный список. */
   public static void showList() {
     System.out.println(getCurrentList());
   }
 
-  //Метод возвращающий текущую коллекцию
+  /**
+   * Возвращает текущую выбранную коллекцию.
+   *
+   * @return выбранная коллекция
+   */
   public static CircularList<?> getCurrentList() {
     if (isStringList) {
       return stringList;
@@ -173,12 +175,16 @@ public class Main {
     return integerList;
   }
 
-  //Метод завершающий программу
+  /** Завершает работу программы. */
   public static void exit() {
     isRunning = false;
   }
 
-  //Метод считывающий целое число
+  /**
+   * Считывает целое число.
+   *
+   * @return введенное целое число
+   */
   public static int readInt() {
     while (!scanner.hasNextInt()) {
       System.out.println("Введите целое число");
@@ -190,4 +196,3 @@ public class Main {
     return value;
   }
 }
-

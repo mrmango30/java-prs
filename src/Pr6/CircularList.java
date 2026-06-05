@@ -1,34 +1,39 @@
 package Pr6;
 
-// Обобщенный класс кольцевого однонаправленного списка
-class CircularList<T> {
-
-  // Узел списка
-  private static class Node<T> {
-    private T value;
-    private Node<T> next;
-
-    private Node(T value) {
-      this.value = value;
-    }
-  }
+/**
+ * Обобщенный класс кольцевого однонаправленного списка.
+ *
+ * @param <T> тип хранимых значений
+ */
+public class CircularList<T> {
 
   private Node<T> head;
   private Node<T> tail;
   private Node<T> pointer;
-  private int size;
+  private int countElements;
 
-  // Метод проверяющий список на пустоту
+  /** Создает пустой кольцевой однонаправленный список. */
+  public CircularList() {}
+
+  /**
+   * Проверяет список на пустоту.
+   *
+   * @return true, если список пуст
+   */
   public boolean isEmpty() {
-    return size == 0;
+    return countElements == 0;
   }
 
-  // Метод устанавливающий указатель в начало
+  /** Устанавливает указатель в начало списка. */
   public void setPointerToStart() {
     pointer = head;
   }
 
-  // Метод добавляющий элемент за указателем
+  /**
+   * Добавляет элемент за указателем.
+   *
+   * @param value добавляемое значение
+   */
   public void addAfterPointer(T value) {
     Node<T> node = new Node<>(value);
 
@@ -37,7 +42,7 @@ class CircularList<T> {
       tail = node;
       pointer = node;
       node.next = node;
-      size++;
+      countElements++;
       return;
     }
 
@@ -52,10 +57,14 @@ class CircularList<T> {
       tail = node;
     }
 
-    size++;
+    countElements++;
   }
 
-  // Метод удаляющий элемент за указателем
+  /**
+   * Удаляет элемент за указателем.
+   *
+   * @return удаленное значение или null, если удаление невозможно
+   */
   public T removeAfterPointer() {
     if (isEmpty() || pointer == null) {
       return null;
@@ -63,12 +72,12 @@ class CircularList<T> {
 
     Node<T> removed = pointer.next;
 
-    if (size == 1) {
+    if (countElements == 1) {
       T value = head.value;
       head = null;
       tail = null;
       pointer = null;
-      size = 0;
+      countElements = 0;
       return value;
     }
 
@@ -82,11 +91,15 @@ class CircularList<T> {
       tail = pointer;
     }
 
-    size--;
+    countElements--;
     return removed.value;
   }
 
-  // Метод возвращающий элемент за указателем
+  /**
+   * Возвращает элемент за указателем.
+   *
+   * @return значение за указателем или null, если элемента нет
+   */
   public T getPointerValue() {
     if (isEmpty() || pointer == null) {
       return null;
@@ -95,7 +108,7 @@ class CircularList<T> {
     return pointer.next.value;
   }
 
-  // Метод перемещающий указатель вправо
+  /** Перемещает указатель вправо. */
   public void movePointerRight() {
     if (!isEmpty()) {
       if (pointer == null) {
@@ -106,7 +119,7 @@ class CircularList<T> {
     }
   }
 
-  // Метод меняющий местами конец списка и элемент за указателем
+  /** Меняет местами конец списка и элемент за указателем. */
   public void swapTailAndPointer() {
     if (isEmpty() || pointer == null) {
       return;
@@ -117,7 +130,7 @@ class CircularList<T> {
     pointer.next.value = temp;
   }
 
-  // Метод меняющий местами начало списка и элемент за указателем
+  /** Меняет местами начало списка и элемент за указателем. */
   public void swapHeadAndPointer() {
     if (isEmpty() || pointer == null) {
       return;
@@ -128,7 +141,11 @@ class CircularList<T> {
     pointer.next.value = temp;
   }
 
-  // Метод возвращающий строковое представление списка
+  /**
+   * Возвращает строковое представление списка.
+   *
+   * @return строковое представление списка
+   */
   public String toString() {
     if (isEmpty()) {
       return "Список пуст";
@@ -137,14 +154,14 @@ class CircularList<T> {
     String result = "";
     Node<T> current = head;
 
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < countElements; i++) {
       result += current.value;
 
       if (current == pointer) {
         result += "(указатель)";
       }
 
-      if (i < size - 1) {
+      if (i < countElements - 1) {
         result += " -> ";
       }
 
@@ -152,5 +169,24 @@ class CircularList<T> {
     }
 
     return result;
+  }
+
+  /**
+   * Узел кольцевого однонаправленного списка.
+   *
+   * @param <T> тип хранимого значения
+   */
+  private static class Node<T> {
+    private T value;
+    private Node<T> next;
+
+    /**
+     * Создает узел с указанным значением.
+     *
+     * @param value значение узла
+     */
+    private Node(T value) {
+      this.value = value;
+    }
   }
 }
